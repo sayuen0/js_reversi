@@ -12,7 +12,9 @@
   background: #fff;
 }
 
-
+/*ゲーム版 
+石がなくてもとりあえず大きさは保ってほしい
+*/
 .board {
   background: #00ee00;
 }
