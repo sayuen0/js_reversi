@@ -1,7 +1,7 @@
 /**
  * 石クラス
  */
-class Stone {
+class Stone extends DOM{
 
 }
 /**

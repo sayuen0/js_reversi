@@ -1,6 +1,6 @@
 /**
  * 
  */
-class Cell{
+class Cell extends DOM{
 
 }
