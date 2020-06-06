@@ -32,6 +32,12 @@ class Board extends DOM {
     this.appendTo(root);
     this.createEmptyCellsList();
     this.setReady();
+    this._node.addEventListener("click", (event) => {
+      // 石の数を数えてゲーム状態に通知する
+      const [whites, blacks] = this.countStones();
+      //FIXME: 石をクリックしてひっくり返すと、ひっくり返す前の通知がされる。しかしAIでひっくり返すなら気にしなくて良い
+      this._gameStatus.observeStoneCount(whites, blacks);
+    })
   }
 
   /**
@@ -70,12 +76,33 @@ class Board extends DOM {
     const stoneColors = ["white", "black", "black", "white"];
     const cells = [
       this._cellList[3][3],
-      this._cellList[3][4],
       this._cellList[4][3],
+      this._cellList[3][4],
       this._cellList[4][4],
     ]
     stoneColors.forEach((color, index) => {
       cells[index].setStone(color);
     })
+  }
+  /**
+   * 今ある石の数を返す
+   * @return {int} [白の数, 黒の数]
+   */
+  countStones() {
+    let [whites, blacks] = [0, 0];
+    this._cellList.forEach(vertical => {
+      vertical.forEach(cell => {
+        if (cell.hasStone && cell.stone.color === "white") {
+          whites++;
+          return;
+        }
+        if (cell.hasStone && cell.stone.color === "black") {
+          blacks++;
+          return;
+        }
+      })
+    })
+    console.log(whites, blacks);
+    return [whites, blacks];
   }
 }

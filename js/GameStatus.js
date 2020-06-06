@@ -18,7 +18,6 @@ class GameStatus {
    */
   _alertBox = null;
 
-
   /**
    * コンストラクタ
    * ゲーム盤をセット
@@ -41,7 +40,7 @@ class GameStatus {
     //TODO:  ランダムないしはじゃんけんの結果で決められるようにする
     //とりあえずあなた
     this._turnPlayer = this._players[0];
-    this._alertBox.setMessage(`${this._turnPlayer.name}の番です`, "info")
+    this._alertBox.setMessage(`${this._turnPlayer.name}の番です 色: ${this._turnPlayer.color}`, "info");
   }
 
   /**
@@ -50,6 +49,24 @@ class GameStatus {
    */
   observeStonePut() {
     this._turnPlayer = this._turnPlayer === this._players[0] ? this._players[1] : this._players[0];
-    this._alertBox.setMessage(`${this._turnPlayer.name}の番です`, "info");
+    this._alertBox.setMessage(`${this._turnPlayer.name}の番です 色: ${this._turnPlayer.color}`, "info");
+  }
+
+  /**
+   * 石の数の変更を受け取り通知する
+   * @param {int} whites 白の数
+   * @param {int} black 黒の数
+   * 
+   */
+  observeStoneCount(whites, blacks) {
+    this._alertBox.setMessage(`${this._turnPlayer.name}の番です 色: ${this._turnPlayer.color},
+    石の数: 白-> ${whites} , 黒->${blacks}
+    `, "info");
+  }
+  /**
+   * 今の手番の色を返す 
+   */
+  get turnColor() {
+    return this._turnPlayer.color;
   }
 }
