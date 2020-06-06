@@ -10,16 +10,6 @@ class Board extends DOM {
   }
 
   /**
-   * ボードのスタイリングをする
-   */
-  setStyle() {
-    //1セル25px * 8
-    const size = "404px";
-    this._node.style.height = size;
-    this._node.style.width = size;
-  }
-
-  /**
    * 基底となるHTMLタグにゲーム版を貼り付ける
    * @param {Node} root 基底となるHTMLタグそのもの
    */

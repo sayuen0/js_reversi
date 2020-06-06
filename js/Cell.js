@@ -12,16 +12,7 @@ class Cell extends DOM {
   }
 
   /**
-   * 初期スタイル
    */
-  setStyle() {
-    const size = "50px";
-    this._node.style.width = size;
-    this._node.style.height = size;
-    this._node.style.display = "inline-block";
-    this._node.style.lineHeight = "1";
-    this._node.style.fontSize = 0;
-    this._node.style.verticalAlign = "bottom"
   }
 
   /**
