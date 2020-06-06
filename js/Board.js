@@ -53,11 +53,6 @@ class Board extends DOM {
       }
     }
   }
-  /**
-   * ゲーム開始状態として4つの石をセットする
-   */
-  setBeginningStones() {
-  }
 
   /**
    * ゲーム開始状態を作成する
