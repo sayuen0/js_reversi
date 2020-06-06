@@ -9,6 +9,12 @@
 /*ゲーム版 
 石がなくてもとりあえず大きさは保ってほしい
 */
+
+#root {
+  display: flex;
+  justify-content: center;
+}
+
 .board {
   width: 500px;
   height: 500px;
