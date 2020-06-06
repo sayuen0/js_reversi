@@ -67,3 +67,7 @@
 .alert-box.error {
   background: #cc2222;
 }
+
+.alert-box.info {
+  background: #bbffbb;
+}

@@ -13,6 +13,11 @@ class GameStatus {
    */
   _turnPlayer = null;
 
+  /**
+   * 通知ボックス
+   */
+  _alertBox = null;
+
 
   /**
    * コンストラクタ
@@ -25,8 +30,8 @@ class GameStatus {
     const opponent = new Player("black", "CPU");
     this._players.push(user);
     this._players.push(opponent);
+    this._alertBox = new AlertBox(document.getElementById("alert"));
     this.selectFirstHand();
-    this._alertBox = new AlertBox();
   }
 
   /**
@@ -36,7 +41,7 @@ class GameStatus {
     //TODO:  ランダムないしはじゃんけんの結果で決められるようにする
     //とりあえずあなた
     this._turnPlayer = this._players[0];
-    console.log(this._turnPlayer.name + "の番です");
+    this._alertBox.setMessage(`${this._turnPlayer.name}の番です`, "info")
   }
 
   /**
@@ -45,6 +50,6 @@ class GameStatus {
    */
   observeStonePut() {
     this._turnPlayer = this._turnPlayer === this._players[0] ? this._players[1] : this._players[0];
-    console.log(this._turnPlayer.name + "の番です");
+    this._alertBox.setMessage(`${this._turnPlayer.name}の番です`, "info");
   }
 }

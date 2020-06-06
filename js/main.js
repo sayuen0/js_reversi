@@ -9,6 +9,4 @@ function main() {
   const root = document.getElementById("root");
   const board = new Board(root, new GameStatus());
   const alertRoot = document.getElementById("alert");
-  const alertBox = new AlertBox(alertRoot);
-  alertBox.setMessage("ダミーアラート", "error");
 }
