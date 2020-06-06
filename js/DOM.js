@@ -19,11 +19,11 @@ class DOM {
     this.setStyle();
   }
   /**
-   * 自身を子要素として付加する
-   * @param {DOM} target 付加対象
+   * 自身に子要素タグを付加する
+   * @param {DOM} child 付加対象
    */
-  appendTo(target) {
-    target._node.appendChild(this._node);
+  addChildNode(child) {
+    this._node.appendChild(child._node);
   }
 
   /**
