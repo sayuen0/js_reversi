@@ -9,17 +9,25 @@ class Player {
   #color = null;
 
   /**
-   * コンストラクタ
+   * 識別名
    */
-  constructor() {
-
-  }
+  #name = null;
 
   /**
-   * 打つ石の色をセットする
-   * @param {String} color 色
+   * コンストラクタ
+   * @param {String} color 打つ色
+   * @param {String} name 識別名
    */
-  set color(color) {
-    this._color = color;
+  constructor(color, name) {
+    this.#color = color
+    this.#name = name;
+  }
+  
+  get color() {
+    return this.#color;
+  }
+
+  get name() {
+    return this.#name;
   }
 }
