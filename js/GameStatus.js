@@ -18,6 +18,7 @@ class GameStatus {
    * コンストラクタ
    * ゲーム盤をセット
    * プレイヤーを2人セット
+   * 通知ボックスを作成してセット
    */
   constructor() {
     const user = new Player("white", "あなた");
@@ -25,6 +26,7 @@ class GameStatus {
     this._players.push(user);
     this._players.push(opponent);
     this.selectFirstHand();
+    this._alertBox = new AlertBox();
   }
 
   /**

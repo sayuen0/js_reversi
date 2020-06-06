@@ -1,9 +1,11 @@
+/* グローバル */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+/*************オセロ部品**********************/
 /*ゲーム版 
 石がなくてもとりあえず大きさは保ってほしい
 */
@@ -51,4 +53,17 @@
 
 .stone.white {
   background: #fff;
+}
+
+/**************コンポーネント*******************/
+/*アラート*/
+
+.alert-box {
+  box-shadow: inset 2px 2px 2px #000;
+  border-radius: 2px;
+  padding: 16px 20px;
+}
+
+.alert-box.error {
+  background: #cc2222;
 }
