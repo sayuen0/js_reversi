@@ -16,7 +16,6 @@ class DOM {
         this._node.classList.add(className);
       })
     }
-    this.setStyle();
   }
   /**
    * 自身に子要素タグを付加する
@@ -24,13 +23,6 @@ class DOM {
    */
   addChildNode(child) {
     this._node.appendChild(child._node);
-  }
-
-  /**
-   * デフォルトのスタイリングをする
-   */
-  setStyle() {
-
   }
 }
 
