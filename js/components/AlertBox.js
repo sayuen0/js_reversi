@@ -30,5 +30,4 @@ class AlertBox extends DOM {
   appendTo(root) {
     root.appendChild(this._node);
   }
-
 }
