@@ -18,9 +18,9 @@ class Cell extends DOM {
   _stone = null;
 
   /**
-   * オブザーバー
+   * ゲーム状態
    */
-  _observer = null;
+  _gameStatus = null;
   /**
    * コンストラクタ
    * セルを作成
@@ -38,37 +38,44 @@ class Cell extends DOM {
     super(tagName, classes);
     this._v = v;
     this._h = h;
-    this._observer = gameStatus;
+    this._gameStatus = gameStatus;
     //クリックイベント登録
     this._node.addEventListener("click", (event) => {
       //TODO: クリックした回数をカウントして、白と黒を置き分ける
-      const color = Math.random() <= 0.5 ? "black" : "white";
-      this.setStone(color);
+      const turnColor = this._gameStatus.turnColor;
+      this.setStone(turnColor);
     });
     this._alreadyPut = false;
   }
 
   /**
    * 石を置く
-   * 置いた位置には新たにはおけない
+   * 置いた位置がクリックされたらそれをひっくり返す
    * @param {String} color 石の色
    */
   setStone(color) {
+    //置かれてるならひっくり返す
     if (this._alreadyPut) {
-      return console.log("すでに置かれています");
+      return this._stone.reverse();
     }
-    console.log("石が置かれました", this._v, this._h);
+    //今のターンプレイヤーの色の石を置く
     this._stone = new Stone(color);
     this.addChildNode(this._stone);
     this._alreadyPut = true;
-    this._observer.observeStonePut();
+    this._gameStatus.observeStonePut();
   }
 
   /**
-   * 石を裏返す
+   * 置かれている石を返す
    */
-  //TODO: あってもいいけどなくて良い
-  reverseStone() {
-    this.stone.reverse();
+  get stone() {
+    return this._stone;
+  }
+
+  /**
+   * 石が置かれていたらtrueを返す
+   */
+  get hasStone() {
+    return this._stone !== null && this._stone !== undefined;
   }
 }
