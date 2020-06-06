@@ -2,21 +2,40 @@
  * 石クラス
  */
 class Stone extends DOM {
+
   /**
-   * 
-   * @param {String} color 
+   * 色
+   */
+  _color = null;
+
+  /**
+   * コンストラクタ
+   * divタグとして作成
+   * 色を決定する
+   * @param {String} color 色
    */
   constructor(color) {
+    //白黒どっちでもなければ黒
+    color = (color !== "black" && color !== "white") ? "black" : color;
     const tagName = "div";
-    //白でも黒でもどっちでも無いのが与えられたら白にしとく
-    if (color !== "white" && color !== "black") {
-      color = "white";
-    }
     const classes = ["stone", color];
     super(tagName, classes);
+    this._color = color;
   }
 
-  setStyle() {
+  /**
+   * 裏返って色が変わる
+   */
+  reverse() {
+    this._node.classList.toggle("black");
+    this._node.classList.toggle("white");
+  }
+
+  /**
+   * 色を返す
+   */
+  get color() {
+    return this._color;
   }
 }
 
