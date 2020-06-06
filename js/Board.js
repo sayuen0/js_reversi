@@ -10,17 +10,25 @@ class Board extends DOM {
   _cellList = null;
 
   /**
+   * ゲーム状態
+   */
+  _gameStatus = null;
+
+  /**
    * コンストラクタ
    * タグ名とクラス名を決定
    * HTML基底タグに貼り付ける
    * 空の8x8マスを作成して付加
    * 最初の4つの石を配置
+   * ゲーム状態をセット
    * @param {DOM} root 基底タグ
+   * @param {GameStatus} gameStatus ゲーム状態
    */
-  constructor(root) {
+  constructor(root, gameStatus) {
     const tagName = "div";
     const classes = ["board"];
     super(tagName, classes);
+    this._gameStatus = gameStatus;
     this.appendTo(root);
     this.createEmptyCellsList();
     this.setReady();
@@ -47,7 +55,7 @@ class Board extends DOM {
         this._cellList[v] = new Array(cellCount);
       }
       for (let h = 0; h < cellCount; h++) {
-        const cell = new Cell(v, h);
+        const cell = new Cell(v, h, this._gameStatus);
         this.addChildNode(cell);
         this._cellList[v][h] = cell;
       }
