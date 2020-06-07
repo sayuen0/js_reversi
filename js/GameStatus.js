@@ -174,4 +174,14 @@ class GameStatus {
     }
     return reversibleList;
   }
+
+  /**
+   * ゲーム状態を履歴に保存する
+   */
+  saveCurrentStatus(cellList) {
+    this._gameHistory.addStatus({
+      cellList,
+      turnPlayer: this._turnPlayer
+    })
+  }
 }
