@@ -59,7 +59,7 @@ class Board extends DOM {
         this._cellList[v][h].reverseStone();
         // console.log(this._cellList[v][h]);
       })
-      //ないなら新しく置く
+      //新しく置く
       console.log("新しく置く");
       targetCell.setStone(this._gameStatus.turnColor);
       const turnColor = this._gameStatus.turnColor;

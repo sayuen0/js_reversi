@@ -28,6 +28,7 @@ class Cell extends DOM {
    * クリックイベントを登録
    * 置かれた状態はfalse
    * オブザーバーとしてゲーム状態をセット
+   * 置けるかどうかのチェックはされていないものとする
    * @param {int} v 縦座標
    * @param {int} h 横座標
    * @param {GameStatus} gameStatus ゲーム状態
@@ -38,13 +39,9 @@ class Cell extends DOM {
     super(tagName, classes);
     this._v = v;
     this._h = h;
+    this._node.dataset.v = v;
+    this._node.dataset.h = h;
     this._gameStatus = gameStatus;
-    //クリックイベント登録
-    this._node.addEventListener("click", (event) => {
-      //TODO: クリックした回数をカウントして、白と黒を置き分ける
-      const turnColor = this._gameStatus.turnColor;
-      this.setStone(turnColor);
-    });
     this._alreadyPut = false;
   }
 
@@ -77,5 +74,14 @@ class Cell extends DOM {
    */
   get hasStone() {
     return this._stone !== null && this._stone !== undefined;
+  }
+
+  /**
+   * 石をひっくり返す
+   */
+  reverseStone() {
+    if (this.hasStone) {
+      this._stone.reverse();
+    }
   }
 }

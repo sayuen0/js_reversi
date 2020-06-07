@@ -29,6 +29,14 @@ class Stone extends DOM {
   reverse() {
     this._node.classList.toggle("black");
     this._node.classList.toggle("white");
+    console.log(this);
+    if (this._node.classList.contains("black")) {
+      this._color = "black";
+    } else {
+      this._color = "white";
+    }
+    console.log(this);
+
   }
 
   /**
