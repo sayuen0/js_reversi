@@ -32,42 +32,69 @@ class Board extends DOM {
     this.appendTo(root);
     this.createEmptyCellsList();
     this.setReady();
-    this._node.addEventListener("click", (event) => {
-      //すでにそのマスに石があるなら何もしない
-      //1. 石がクリックされたとき
-      if (event.target.classList.contains("stone")) {
-        console.log("石がクリックされても何もしない");
-        return;
-      }
-      //2.石の置いてあるマス(のすき間)がクリックされたとき
-      const [clickedV, clickedH] = [parseInt(event.target.dataset.v), parseInt(event.target.dataset.h)];
-      const targetCell = this._cellList[clickedV][clickedH];
-      if (targetCell.hasStone) {
-        console.log("すでに置かれているマスがクリックされても何もしない");
-        return;
-      }
-      // 現在の盤面をゲーム状態にに通知して置けるかどうか判定
-      const reversibleList = this._gameStatus.observeBoard(this._cellList, event.target);
-      console.log("ひっくり返せるマス達", reversibleList);
-      //ひっくり返せるマスがないときはおかずに終了
-      if (reversibleList.length === 0) {
-        console.log("ひっくり返せるマス数がないのでおけません");
-        return;
-      }
-      //ひっくり返せるマスがあれば全部ひっくり返す
-      reversibleList.forEach(({ v, h }) => {
-        this._cellList[v][h].reverseStone();
-        // console.log(this._cellList[v][h]);
-      })
-      //新しく置く
-      console.log("新しく置く");
-      targetCell.setStone(this._gameStatus.turnColor);
-      const turnColor = this._gameStatus.turnColor;
+    this.setListener();
+  }
 
-      // 石の数を数えてゲーム状態に通知する
-      const [whites, blacks] = this.countStones();
-      this._gameStatus.observeStoneCount(whites, blacks);
+  /**
+   * イベントリスナをセットする
+   */
+  setListener() {
+    this._node.addEventListener("click", this.handleClick);
+    this._node.addEventListener("mouseover", this.handleMouseOver);
+  }
+
+  /**
+   * クリックイベント処理
+   * 石を置けるかどうか判定して、おけないなら何もしない。
+   * 置けるなら、ひっくり返せる石を全てひっくり返してクリック位置に石を置く
+   * @param {Event} event クリックイベント
+   * @param {Event} self 自分自身の参照
+   */
+  handleClick = (event) => {
+    //すでにそのマスに石があるなら何もしない
+    //1. 石がクリックされたとき
+    if (event.target.classList.contains("stone")) {
+      console.log("石がクリックされても何もしない");
+      return;
+    }
+    //2.石の置いてあるマス(のすき間)がクリックされたとき
+    const [clickedV, clickedH] = [parseInt(event.target.dataset.v), parseInt(event.target.dataset.h)];
+    const targetCell = this._cellList[clickedV][clickedH];
+    if (targetCell.hasStone) {
+      console.log("すでに置かれているマスがクリックされても何もしない");
+      return;
+    }
+    // 現在の盤面をゲーム状態にに通知して置けるかどうか判定
+    const reversibleList = this._gameStatus.observeBoard(this._cellList, event.target);
+    console.log("ひっくり返せるマス達", reversibleList);
+    //ひっくり返せるマスがないときはおかずに終了
+    if (reversibleList.length === 0) {
+      console.log("ひっくり返せるマス数がないのでおけません");
+      return;
+    }
+    //ひっくり返せるマスがあれば全部ひっくり返す
+    reversibleList.forEach(({ v, h }) => {
+      this._cellList[v][h].reverseStone();
     })
+    //新しく置く
+    targetCell.setStone(this._gameStatus.turnColor);
+    const turnColor = this._gameStatus.turnColor;
+
+    // 石の数を数えてゲーム状態に通知する
+    const [whites, blacks] = this.countStones();
+    this._gameStatus.observeStoneCount(whites, blacks);
+    //ゲーム状態を履歴として保存する
+    this._gameStatus.saveCurrentStatus(this._cellList);
+  }
+
+  /**
+   * マウスオーバーイベント処理
+   * もしそこに石を置いたらどうなるかをシミュレートし、
+   * 置ける石の数をヒント吹き出しに載せる
+   */
+  handleMouseOver = (event) => {
+    const [targetV, targetH] = [parseInt(event.target.dataset.v, event.target.dataset.h)]
+    this._gameStatus.countStonesCanGet(targetV, targetH, this._cellList, event.target);
   }
 
   /**
@@ -97,6 +124,8 @@ class Board extends DOM {
         this._cellList[v][h] = cell;
       }
     }
+    //初期状態を保存しておく
+    this._gameStatus.saveCurrentStatus(this._cellList);
   }
 
   /**
