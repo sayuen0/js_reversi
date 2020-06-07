@@ -7,17 +7,35 @@ class HintBalloon extends DOM {
    */
   constructor() {
     const tagName = "div";
-    const classes = ["hint-balloon"];
+    const classes = ["hint-balloon", "disabled"];
     super(tagName, classes);
     this.setListener();
-    this._node.innerHTML = "hello world";
+    this.setMessage("ヒントボックスです。マスに重ねると取れるコマの数を表示します。");
   }
 
+  /**
+   * イベントリスナーをセットする
+   * クリックイベント
+   * マウス移動イベント
+   */
   setListener() {
+    //クリックイベント
     const hintButton = document.getElementById("hint-button");
     hintButton.addEventListener("click", () => {
-      this._node.style.display = "block";
+      this._node.classList.toggle("disabled");
       document.body.appendChild(this._node);
     })
+    //マウス移動イベント
+    window.addEventListener("mousemove", (e) => {
+      this._node.style.left = `${e.clientX + 20}px`;
+      this._node.style.top = `${e.clientY + 20}px`;
+    })
+  }
+
+  /**
+   * 
+   */
+  setMessage(message) {
+    this._node.textContent = message;
   }
 }

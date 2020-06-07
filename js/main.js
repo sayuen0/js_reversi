@@ -10,5 +10,4 @@ function main() {
   const root = document.getElementById("root");
   board = new Board(root, new GameStatus());
   const alertRoot = document.getElementById("alert");
-  const hintBalloon = new HintBalloon();
 }

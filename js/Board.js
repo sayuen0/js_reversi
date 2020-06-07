@@ -68,6 +68,14 @@ class Board extends DOM {
       const [whites, blacks] = this.countStones();
       this._gameStatus.observeStoneCount(whites, blacks);
     })
+  /**
+   * マウスオーバーイベント処理
+   * もしそこに石を置いたらどうなるかをシミュレートし、
+   * 置ける石の数をヒント吹き出しに載せる
+   */
+  handleMouseOver = (event) => {
+    const [targetV, targetH] = [parseInt(event.target.dataset.v, event.target.dataset.h)]
+    this._gameStatus.countStonesCanGet(targetV, targetH, this._cellList, event.target);
   }
 
   /**
