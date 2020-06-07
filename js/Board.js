@@ -33,15 +33,46 @@ class Board extends DOM {
     this.createEmptyCellsList();
     this.setReady();
     this._node.addEventListener("click", (event) => {
+      //すでにそのマスに石があるなら何もしない
+      //1. 石がクリックされたとき
+      if (event.target.classList.contains("stone")) {
+        console.log("石がクリックされても何もしない");
+        return;
+      }
+      //2.石の置いてあるマス(のすき間)がクリックされたとき
+      const [clickedV, clickedH] = [parseInt(event.target.dataset.v), parseInt(event.target.dataset.h)];
+      const targetCell = this._cellList[clickedV][clickedH];
+      if (targetCell.hasStone) {
+        console.log("すでに置かれているマスがクリックされても何もしない");
+        return;
+      }
+      // 現在の盤面をゲーム状態にに通知して置けるかどうか判定
+      const reversibleList = this._gameStatus.observeBoard(this._cellList, event.target);
+      console.log("ひっくり返せるマス達", reversibleList);
+      //ひっくり返せるマスがないときはおかずに終了
+      if (reversibleList.length === 0) {
+        console.log("ひっくり返せるマス数がないのでおけません");
+        return;
+      }
+      //ひっくり返せるマスがあれば全部ひっくり返す
+      reversibleList.forEach(({ v, h }) => {
+        this._cellList[v][h].reverseStone();
+        // console.log(this._cellList[v][h]);
+      })
+      //ないなら新しく置く
+      console.log("新しく置く");
+      targetCell.setStone(this._gameStatus.turnColor);
+      const turnColor = this._gameStatus.turnColor;
+
       // 石の数を数えてゲーム状態に通知する
       const [whites, blacks] = this.countStones();
-      //FIXME: 石をクリックしてひっくり返すと、ひっくり返す前の通知がされる。しかしAIでひっくり返すなら気にしなくて良い
       this._gameStatus.observeStoneCount(whites, blacks);
     })
   }
 
   /**
    * 基底となるHTMLタグにゲーム版を貼り付ける
+   * CellをこれにつけるときはDOM#addChildNodeを用いること。
    * @param {Node} root 基底となるHTMLタグそのもの
    */
   appendTo(root) {
@@ -102,7 +133,10 @@ class Board extends DOM {
         }
       })
     })
-    console.log(whites, blacks);
     return [whites, blacks];
+  }
+
+  getCell(v, h) {
+    return this._cellList[v][h];
   }
 }
