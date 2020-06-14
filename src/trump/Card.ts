@@ -18,7 +18,7 @@ class Card {
    */
   constructor(suit: Suit, number: Number) {
     this.suit = suit;
-    this.number = number;
+    this.number = number;//TODO:これ宣言しなくてもいけるんでね?
     this.element = document.createElement("div");
     this.decorateHTMLAttributes();
   }
