@@ -2,9 +2,15 @@
   "name": "js_othello",
   "version": "1.0.0",
   "description": "[github-pages](https://sayuen0.github.io/js_reversi/) # heroku",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "ts-node src/index.ts",
+    "dev:watch": "ts-node-dev --respawn src/index.ts",
+    "clean": "rimraf dist/*",
+    "tsc": "tsc",
+    "build": "npm-run-all clean tsc",
+    "start": "node ."
   },
   "repository": {
     "type": "git",
@@ -16,5 +22,13 @@
   "bugs": {
     "url": "https://github.com/sayuen0/js_reversi/issues"
   },
-  "homepage": "https://github.com/sayuen0/js_reversi#readme"
+  "homepage": "https://github.com/sayuen0/js_reversi#readme",
+  "devDependencies": {
+    "@types/node": "^14.0.13",
+    "npm-run-all": "^4.1.5",
+    "rimraf": "^3.0.2",
+    "ts-node": "^8.10.2",
+    "ts-node-dev": "^1.0.0-pre.47",
+    "typescript": "^3.9.5"
+  }
 }
