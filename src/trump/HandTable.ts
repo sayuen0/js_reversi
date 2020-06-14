@@ -1,6 +1,9 @@
 import { Card } from "./Card";
 import { CardList } from "./CardList";
 import { NodeElement } from "./NodeElement";
+interface HTMLElementEvent<T extends HTMLElement> extends Event {
+  target: T;
+};
 /**
  * 手札置き場
  * 5枚までカードを置ける
@@ -14,6 +17,15 @@ class HandTable extends NodeElement {
    */
   public constructor(public readonly _deck: CardList = new CardList()) {
     super(document.createElement("div"), ["hand-table"]);
+
+
+    this.node.addEventListener("click", function (event) {
+      // const target = <HTMLElement>event.target;
+      // console.log(target.classList);
+      // const name = target.dataset.name;
+      // const num = target.dataset.num;
+      // TODO: this.discard
+    })
   }
   /**
    * カードたちを返す
@@ -136,6 +148,13 @@ class HandTable extends NodeElement {
       maxNumOfPair,
       pairCounts
     };
+  }
+
+  /**
+   * カード捨てる
+   */
+  private discard(): void {
+    console.log("Hello");
   }
 }
 

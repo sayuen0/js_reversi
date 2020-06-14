@@ -15,10 +15,12 @@ class Card extends NodeElement {
   constructor(suit: Suit, number: Number, ...classNames: Array<string>) {
     const node = document.createElement("div");
     super(node, classNames);
+    this.node.dataset.name = suit.name;
+    this.node.dataset.num = <string><unknown>number.num;
     this.suit = suit;
     this.number = number;//TODO:これ宣言しなくてもいけるんでね?
     this.decorateHTMLAttributes();
-    this.setClickListener();
+    // this.setClickListener();
   }
 
   /**
