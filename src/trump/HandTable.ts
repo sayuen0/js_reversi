@@ -157,18 +157,20 @@ class HandTable extends NodeElement {
  */
 class HandType {
   //弱い順
-  public static readonly HIGH_CARDS = new HandType(0);
-  public static readonly ONE_PAIR = new HandType(1);
-  public static readonly TWO_PAIR = new HandType(2);
-  public static readonly THREE_OF_A_KIND = new HandType(3);
-  public static readonly STRAIGHT = new HandType(4);
-  public static readonly FLUSH = new HandType(5);
-  public static readonly FULL_HOUSE = new HandType(6);
-  public static readonly FOUR_OF_A_KIND = new HandType(7);
-  public static readonly STRAIGHT_FLUSH = new HandType(8);
-  public static readonly ROYAL_STRAIGHT_FLUSH = new HandType(9);
+  public static readonly HIGH_CARDS = new HandType(0, "ブタ");
+  public static readonly ONE_PAIR = new HandType(1, "ワンペア");
+  public static readonly TWO_PAIR = new HandType(2, "ツーペア");
+  public static readonly THREE_OF_A_KIND = new HandType(3, "スリーオブアカインド");
+  public static readonly STRAIGHT = new HandType(4, "ストレート");
+  public static readonly FLUSH = new HandType(5, "フラッシュ");
+  public static readonly FULL_HOUSE = new HandType(6, "フルハウス");
+  public static readonly FOUR_OF_A_KIND = new HandType(7, "フォーオブアカインド");
+  public static readonly STRAIGHT_FLUSH = new HandType(8, "ストレートフラッシュ");
+  public static readonly ROYAL_STRAIGHT_FLUSH = new HandType(9, "ロイヤルストレートフラッシュ");
 
-  private constructor(public readonly strength: number) {
+  private constructor(
+    public readonly strength: number,
+    public readonly name: string) {
   }
 }
 
