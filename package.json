@@ -31,7 +31,7 @@
       }
     },
     "testMatch": [
-      "**/__tests__/*.spec.+(ts|tsx|js)"
+      "**/__tests__/**/*.spec.+(ts|tsx|js)"
     ]
   },
   "repository": {
