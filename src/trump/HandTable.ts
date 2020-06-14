@@ -17,14 +17,13 @@ class HandTable extends NodeElement {
    */
   public constructor(public readonly _deck: CardList = new CardList()) {
     super(document.createElement("div"), ["hand-table"]);
-
-
     this.node.addEventListener("click", function (event) {
       // const target = <HTMLElement>event.target;
       // console.log(target.classList);
       // const name = target.dataset.name;
       // const num = target.dataset.num;
       // TODO: this.discard
+      // TODO: メモする キャストしないとclassListつかめませんぜ
     })
   }
   /**
@@ -101,6 +100,8 @@ class HandTable extends NodeElement {
    * ストレートかつフラッシュならtrue
    * @param {number} fisrtNumber 先頭の数値
   */
+  //TODO: メモする ストレートでかつフラッシュならストレートフラッシュなのである
+  //TODO: メモする 開始番号が10と決まっているストレートフラッシュがロイヤルストレートフラッシュなのである
   private isStraightFlush(startFrom?: number): boolean {
     return this.isStraight() && this.isFlush();
   }
