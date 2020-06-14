@@ -1,30 +1,29 @@
+import { NodeElement } from "./NodeElement";
 /**
  * トランプカードクラス(ジョーカーを除く)
  * 自分の絵柄を持つ
  *
  */
-class Card {
+class Card extends NodeElement {
   public readonly suit: Suit;
   public readonly number: Number;
-  /**
-   * タグ
-   */
-  public element: HTMLElement;
-
   /**
    * コンストラクタ
    * @param suit カードマーク
    * @param number カード数値
    */
-  constructor(suit: Suit, number: Number) {
+  constructor(suit: Suit, number: Number, ...classNames: Array<string>) {
+    const node = document.createElement("div");
+    super(node, classNames);
     this.suit = suit;
     this.number = number;//TODO:これ宣言しなくてもいけるんでね?
-    this.element = document.createElement("div");
     this.decorateHTMLAttributes();
   }
 
+  /**
+   * カードの画像パスを返す
+   */
   public get imagePath(): string {
-    console.log(this.number);
     return `cards_${this.suit.name.toLowerCase()}_${"0" + String(this.number.num).slice(-2)}.png`;
   }
 
@@ -32,9 +31,9 @@ class Card {
    * タグにクラスや背景画像属性を与える
    */
   private decorateHTMLAttributes(): void {
-    this.element.classList.add("card");
+    this._node.classList.add("card");
     const imageRoot = "/images/trump"
-    this.element.style.backgroundImage = `url('${imageRoot}/${this.imagePath}')`;
+    this._node.style.backgroundImage = `url('${imageRoot}/${this.imagePath}')`;
   }
 }
 

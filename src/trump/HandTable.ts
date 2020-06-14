@@ -1,15 +1,20 @@
 import { Card } from "./Card";
 import { CardList } from "./CardList";
+import { NodeElement } from "./NodeElement";
 /**
  * 手札置き場
  * 5枚までカードを置ける
  */
-class HandTable {
+class HandTable extends NodeElement {
   /**
    * 山札(手札)
    */
   private _deck: CardList;
+  /**
+   * タグ
+   */
   public constructor(deck: CardList = new CardList()) {
+    super(document.createElement("div"), ["hand-table"]);
     this._deck = deck;
   }
 

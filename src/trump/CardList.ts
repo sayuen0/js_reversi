@@ -57,6 +57,17 @@ class CardList {
       [this._cards[i], this.cards[r]] = [this._cards[r], this.cards[i]]
     }
   }
+
+  /**
+   * てっぺんから一枚引いて返す
+   */
+  public draw(): Card {
+    const card = this._cards.shift();
+    if (!card) {
+      throw new Error("無いものからは引けないぜ。");
+    }
+    return card;
+  }
 }
 
 
