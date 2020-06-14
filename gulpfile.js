@@ -2,6 +2,7 @@
 
 var gulp = require('gulp');
 var sass = require('gulp-sass');
+var typescript = require('gulp-typescript');
 
 sass.compiler = require('node-sass');
 
@@ -13,4 +14,13 @@ gulp.task('sass', function () {
 
 gulp.task('sass:watch', function () {
   gulp.watch('./sass/**/*.scss', ['sass']);
+});
+
+gulp.task('ts', () => {
+  return gulp.src('./src/ts/**/*.ts')
+    .pipe(typescript({
+      target: 'ES5',
+      removeComments: true
+    }))
+    .js.pipe(gulp.dest('./dist/assets/js'));
 });
