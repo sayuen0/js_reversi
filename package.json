@@ -1,0 +1,20 @@
+{
+  "name": "js_othello",
+  "version": "1.0.0",
+  "description": "[github-pages](https://sayuen0.github.io/js_reversi/) # heroku",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sayuen0/js_reversi.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sayuen0/js_reversi/issues"
+  },
+  "homepage": "https://github.com/sayuen0/js_reversi#readme"
+}
