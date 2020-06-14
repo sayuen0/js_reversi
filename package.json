@@ -6,15 +6,8 @@
   "scripts": {
     "test": "jest",
     "test:watch": "jest --watch",
-    "test:coverage": "jest --watch --coverage",
-    "dev": "ts-node src/index.ts",
-    "dev:watch": "ts-node-dev --respawn src/index.ts",
-    "clean": "rimraf dist/*",
-    "tsc": "tsc",
-    "build": "npm-run-all clean tsc",
-    "start": "node .",
-    "build-ts": "webpack",
-    "watch-ts": "webpack -w"
+    "build": "webpack",
+    "build:watch": "webpack -w"
   },
   "jest": {
     "moduleFileExtensions": [
