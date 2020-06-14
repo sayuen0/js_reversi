@@ -1,8 +1,13 @@
-import { Card } from "./Card";
+import { Card, Suit, Number } from "./Card";
 class CardList {
   private _cards: Card[];
-  constructor() {
-    this._cards = [];
+  /**
+   * コンストラクタ
+   * カードのリストから作成
+   * 何も渡さなくてもからの山札を作成
+   */
+  constructor(list: Array<Card> = new Array<Card>()) {
+    this._cards = list;
   }
 
   /**
@@ -31,10 +36,22 @@ class CardList {
    * @param {boolean} withJoker ジョーカー入りの54枚で作成するならtrue
    */
   public static createNotShuffledDeck(withJoker: boolean = false): CardList {
-    if (withJoker) {
-      console.log("withJoker");
-    }
-    return new CardList();
+    let card;
+    const cards = new Array<Card>();
+    Card.getAllNumbers().forEach(number => {
+      Card.getAllSuits().forEach(suit => {
+        card = new Card(suit, number);
+        cards.push(card);
+      })
+    })
+    return new CardList(cards);
+  }
+
+  /**
+   * まぜまぜする
+   */
+  public shuflle(): void {
+
   }
 }
 

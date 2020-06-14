@@ -1,18 +1,49 @@
+/**
+ * トランプカードクラス(ジョーカーを除く)
+ * 自分の絵柄を持つ
+ *
+ */
 class Card {
-  private _suit: CardSuit;
-  private _number: CardNumber;
+  private _suit: Suit;
+  private _number: Number;
 
-  constructor(suit: CardSuit, number: CardNumber) {
+  constructor(suit: Suit, number: Number) {
     this._suit = suit;
     this._number = number;
   }
 
-  public get number(): CardNumber {
+  public get number(): Number {
     return this._number
   }
 
-  public get suit(): CardSuit {
+  public get suit(): Suit {
     return this._suit;
+  }
+
+  public imagePath(): string {
+    return "";
+  }
+
+  public static getAllSuits(): Suit[] {
+    return [Suit.CLUB, Suit.DIAMOND, Suit.HEART, Suit.SPADE];
+  }
+
+  public static getAllNumbers(): Number[] {
+    return [
+      Number.ACE,
+      Number.TWO,
+      Number.THREE,
+      Number.FOUR,
+      Number.FIVE,
+      Number.SIX,
+      Number.SEVEN,
+      Number.EIGHT,
+      Number.NINE,
+      Number.TEN,
+      Number.JACK,
+      Number.QUEEN,
+      Number.KING
+    ];
   }
 }
 
@@ -20,7 +51,7 @@ class Card {
 /**
  * 番号ども
  */
-enum CardNumber {
+enum Number {
   ACE,
   TWO,
   THREE,
@@ -42,12 +73,12 @@ enum CardNumber {
 /**
  * マークども
  */
-enum CardSuit {
-  Club,
-  Diamond,
-  Heart,
-  Spade
+enum Suit {
+  CLUB,
+  DIAMOND,
+  HEART,
+  SPADE
 }
 
 
-export { Card, CardNumber, CardSuit }
+export { Card, Number, Suit }
