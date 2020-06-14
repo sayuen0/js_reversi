@@ -4,7 +4,9 @@
   "description": "[github-pages](https://sayuen0.github.io/js_reversi/) # heroku",
   "main": "dist/index.js",
   "scripts": {
-    "test": "jest --watch --coverage",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --watch --coverage",
     "dev": "ts-node src/index.ts",
     "dev:watch": "ts-node-dev --respawn src/index.ts",
     "clean": "rimraf dist/*",
