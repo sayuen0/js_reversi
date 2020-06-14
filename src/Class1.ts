@@ -1,4 +1,3 @@
-
 export default class Class1 {
   private _name: String;
   constructor(name: String) {
@@ -8,6 +7,3 @@ export default class Class1 {
     return this._name;
   }
 }
-
-
-
