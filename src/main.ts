@@ -1,13 +1,12 @@
 //これのおかげでCSSを読み込む必要なし
 import "../sass/sample/style.scss"
 
-import Class1 from "./Class1";
+import { Card, CardSuit, CardNumber } from "./trump/Card";
+import { CardList } from "./trump/CardList";
+const card1 = new Card(CardSuit.Club, CardNumber.ACE);
+const card2 = new Card(CardSuit.Spade, CardNumber.KING);
+const deck = new CardList();
+deck.add(card1);
+deck.add(card2);
 
-console.log(hello("typescript"));
-
-function hello(name: String): string {
-  return `Hello, ${name}`;
-}
-
-
-console.log(new Class1("hello").name);
+console.log(deck);
