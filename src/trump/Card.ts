@@ -21,7 +21,7 @@ class Card {
  * 番号ども
  */
 enum CardNumber {
-  ACE = 1,
+  ACE,
   TWO,
   THREE,
   FOUR,

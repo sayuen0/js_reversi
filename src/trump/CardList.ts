@@ -12,16 +12,31 @@ class CardList {
     this._cards.push(card);
   }
 
+  /**
+   * カードたちを返す
+   */
   public get cards(): Card[] {
     return this._cards;
   }
 
   /**
-   * 未開封カードリストを作成する
+   * カード枚数を返す
    */
-  public static createNotShuffledDeck(withJoker: boolean): CardList {
+  get length() {
+    return this._cards.length;
+  }
+
+  /**
+   * 未開封カードリストを作成する
+   * @param {boolean} withJoker ジョーカー入りの54枚で作成するならtrue
+   */
+  public static createNotShuffledDeck(withJoker: boolean = false): CardList {
+    if (withJoker) {
+      console.log("withJoker");
+    }
     return new CardList();
   }
 }
+
 
 export { CardList }
