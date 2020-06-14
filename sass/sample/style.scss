@@ -8,3 +8,13 @@ div.club.ace {
   font-size: 3em;
   background-image: url("../../images/trump/cards_c02.png");
 }
+
+/*カード
+表の画像絵柄種類はオブジェクトで指定するのでこちらには書かない
+*/
+.card {
+  width: 100px;
+  height: 200px;
+  background-position: center center;
+  background-size: 100% 100%;
+}

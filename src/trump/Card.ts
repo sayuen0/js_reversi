@@ -4,49 +4,57 @@
  *
  */
 class Card {
-  private _suit: Suit;
-  private _number: Number;
+  public readonly suit: Suit;
+  public readonly number: Number;
+  /**
+   * タグ
+   */
+  public element: HTMLElement;
 
   /**
+   * コンストラクタ
    * @param suit カードマーク
    * @param number カード数値
    */
   constructor(suit: Suit, number: Number) {
-    this._suit = suit;
-    this._number = number;
+    this.suit = suit;
+    this.number = number;
+    this.element = document.createElement("div");
+    this.decorateHTMLAttributes();
   }
 
-  public get number(): Number {
-    return this._number
+  public get imagePath(): string {
+    console.log(this.number);
+    return `cards_${this.suit.name.toLowerCase()}_${"0" + String(this.number.num).slice(-2)}.png`;
   }
 
-  public get suit(): Suit {
-    return this._suit;
-  }
-
-  public imagePath(): string {
-    return "";
+  /**
+   * タグにクラスや背景画像属性を与える
+   */
+  private decorateHTMLAttributes(): void {
+    this.element.classList.add("card");
+    const imageRoot = "/images/trump"
+    this.element.style.backgroundImage = `url('${imageRoot}/${this.imagePath}')`;
   }
 }
-
 
 /**
  * 番号ども
  */
 class Number {
   public static readonly ACE = new Number("ACE", 1);
-  public static readonly TWO = new Number("TWO", 1);
-  public static readonly THREE = new Number("THREE", 1);
-  public static readonly FOUR = new Number("FOUR", 1);
-  public static readonly FIVE = new Number("FIVE", 1);
-  public static readonly SIX = new Number("SIX", 1);
-  public static readonly SEVEN = new Number("SEVEN", 1);
-  public static readonly EIGHT = new Number("EIGIT", 1);
-  public static readonly NINE = new Number("NINE", 1);
-  public static readonly TEN = new Number("TEN", 1);
-  public static readonly JACK = new Number("JACK", 1);
-  public static readonly QUEEN = new Number("QUEEN", 1);
-  public static readonly KING = new Number("KING", 1);
+  public static readonly TWO = new Number("TWO", 2);
+  public static readonly THREE = new Number("THREE", 3);
+  public static readonly FOUR = new Number("FOUR", 4);
+  public static readonly FIVE = new Number("FIVE", 5);
+  public static readonly SIX = new Number("SIX", 6);
+  public static readonly SEVEN = new Number("SEVEN", 7);
+  public static readonly EIGHT = new Number("EIGIT", 8);
+  public static readonly NINE = new Number("NINE", 9);
+  public static readonly TEN = new Number("TEN", 10);
+  public static readonly JACK = new Number("JACK", 11);
+  public static readonly QUEEN = new Number("QUEEN", 12);
+  public static readonly KING = new Number("KING", 13);
   /**
    * コンストラクタ
    * @param name 名前

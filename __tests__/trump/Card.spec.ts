@@ -11,3 +11,10 @@ describe('カード番号やカードマーク', () => {
   });
 });
 
+describe('画像パス', () => {
+  it('画像パスが正しい', () => {
+    const c = new Card(Suit.CLUB, Number.EIGHT);
+    expect(c.imagePath).toBe("cards_club_08.png");
+  });
+});
+
