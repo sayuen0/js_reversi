@@ -1,5 +1,6 @@
 import { Card, Suit, Number } from "./Card";
-export class CardList {
+import { NodeElement } from "./NodeElement";
+export class CardList extends NodeElement {
   private _cards: Array<Card>;
   /**
    * コンストラクタ
@@ -7,14 +8,17 @@ export class CardList {
    * 何も渡さなくてもからの山札を作成
    */
   constructor(list: Array<Card> = new Array<Card>()) {
+    super(document.createElement("div"), ["card-list"]);
     this._cards = list;
   }
 
   /**
    * カードを末尾に加える
+   * htmlタグをとしても加える
    */
   public add(card: Card): void {
     this._cards.push(card);
+    this._node.appendChild(card.node);
   }
 
   /**
@@ -45,6 +49,14 @@ export class CardList {
       })
     })
     return new CardList(cards);
+  }
+
+  /**
+   * 特定位置のカードを返す
+   * @param index 位置
+   */
+  public get(index: number): Card {
+    return this._cards[index];
   }
 
   /**

@@ -7,18 +7,24 @@ import { HandTable } from "./trump/HandTable";
 
 const c1 = new Card(Suit.CLUB, Number.EIGHT);
 const c2 = new Card(Suit.CLUB, Number.NINE);
-const t = new HandTable();
 const root = document.getElementById("root");
 if (!root) {
   throw new Error("rootがありません");
 }
-root.appendChild(t.node);
 const deck = CardList.createNotShuffledDeck();
+//これを山札にするので、クラス名を与えて裏向き画像にしておくれ
+root.appendChild(deck.node);
 deck.shuflle(10000);
 let card: Card;
 const count = 5;
+const hands: CardList = new CardList();
 for (let i = 0; i < count; i++) {
   card = deck.draw();
-  console.log(i);
-  t.node.appendChild(card.node);
+  hands.add(card);
 }
+
+const table = new HandTable(hands);
+root.appendChild(table.node);
+table.node.appendChild(hands.node);
+console.log(table.judgeStrength());
+

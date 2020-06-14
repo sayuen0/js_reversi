@@ -4,6 +4,7 @@ import { NodeElement } from "./NodeElement";
 /**
  * 手札置き場
  * 5枚までカードを置ける
+ * 弾き終わって交換したら自分の強さを観れる
  */
 class HandTable extends NodeElement {
   /**
@@ -40,6 +41,32 @@ class HandTable extends NodeElement {
   public get num() {
     return this._deck.length;
   }
+
+  /**
+   * 手札の強さを返す
+   * 格判定を使う
+   */
+  public judgeStrength(): HandType {
+    if (this.isRoyalStraightFlush()) {
+
+    }
+    return HandType.HIGH_CARDS;
+  }
+
+  /**
+   * ロイヤルストレートフラッシュならtrue
+   */
+  private isRoyalStraightFlush(): boolean {
+    //先頭の柄取得
+    const first = this._deck;
+    console.log(first);
+
+    // const sortedCards = this._deck.cards.sort((a, b) => {
+    //   return a.number.num - b.number.num;
+    // })
+    // console.log(sortedCards);
+    return false;
+  }
 }
 
 
@@ -49,18 +76,19 @@ class HandTable extends NodeElement {
  */
 class HandType {
   //弱い順
-  public readonly HIGH_CARDS = new HandType(0);
-  public readonly ONE_PAIR = new HandType(1);
-  public readonly TWO_PAIR = new HandType(2);
-  public readonly THREE_OF_A_KIND = new HandType(3);
-  public readonly STRAIGHT = new HandType(4);
-  public readonly FLUSH = new HandType(5);
-  public readonly FULL_HOUSE = new HandType(6);
-  public readonly FOUR_OF_A_KIND = new HandType(7);
-  public readonly STRAIGHT_FLUSH = new HandType(8);
-  public readonly ROYAL_STRAIGHT_FLUSH = new HandType(9);
+  public static readonly HIGH_CARDS = new HandType(0);
+  public static readonly ONE_PAIR = new HandType(1);
+  public static readonly TWO_PAIR = new HandType(2);
+  public static readonly THREE_OF_A_KIND = new HandType(3);
+  public static readonly STRAIGHT = new HandType(4);
+  public static readonly FLUSH = new HandType(5);
+  public static readonly FULL_HOUSE = new HandType(6);
+  public static readonly FOUR_OF_A_KIND = new HandType(7);
+  public static readonly STRAIGHT_FLUSH = new HandType(8);
+  public static readonly ROYAL_STRAIGHT_FLUSH = new HandType(9);
 
-  private constructor(strength: number) { }
+  private constructor(public readonly strength: number) {
+  }
 }
 
 export { HandTable, HandType };

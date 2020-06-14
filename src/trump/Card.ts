@@ -18,6 +18,7 @@ class Card extends NodeElement {
     this.suit = suit;
     this.number = number;//TODO:これ宣言しなくてもいけるんでね?
     this.decorateHTMLAttributes();
+    this.setClickListener();
   }
 
   /**
@@ -34,6 +35,15 @@ class Card extends NodeElement {
     this._node.classList.add("card");
     const imageRoot = "/images/trump"
     this._node.style.backgroundImage = `url('${imageRoot}/${this.imagePath}')`;
+  }
+
+  /**
+   * クリックイベントつける
+   */
+  private setClickListener(): void {
+    this.node.addEventListener("click", (event) => {
+      console.log(event.target, event.currentTarget, this.number, this.suit);
+    })
   }
 }
 
@@ -91,6 +101,8 @@ class Number {
  * マークども
  */
 class Suit {
+  private _name: string;
+  private _num: number;
   public static readonly CLUB = new Suit("CLUB", 0);
   public static readonly DIAMOND = new Suit("DIAMOND", 1);
   public static readonly HEART = new Suit("HEART", 2);
@@ -101,6 +113,8 @@ class Suit {
    * @param num 数値
    */
   private constructor(public readonly name: string, public readonly num: number) {
+    this._name = name;
+    this._num = num;
   }
   /**
    * 全部を返す
