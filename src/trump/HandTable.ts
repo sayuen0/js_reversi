@@ -27,10 +27,10 @@ class HandTable extends NodeElement {
    * @param card カード
    */
   public addCard(card: Card): void {
-    if (this._deck.length >= 5) {
-      console.log("もう追加でけへんで");
-      return;
-    }
+    // if (this._deck.length >= 5) {
+    //   console.log("もう追加でけへんで");
+    //   return;
+    // }
     this._deck.add(card);
   }
 

@@ -24,7 +24,7 @@ class Card extends NodeElement {
    * カードの画像パスを返す
    */
   public get imagePath(): string {
-    return `cards_${this.suit.name.toLowerCase()}_${"0" + String(this.number.num).slice(-2)}.png`;
+    return `cards_${this.suit.name.toLowerCase()}_${("00" + this.number.num).slice(-2)}.png`;
   }
 
   /**

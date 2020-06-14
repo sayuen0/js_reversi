@@ -1,5 +1,5 @@
 import { Card, Suit, Number } from "./Card";
-class CardList {
+export class CardList {
   private _cards: Array<Card>;
   /**
    * コンストラクタ
@@ -52,9 +52,11 @@ class CardList {
    * Fisher–Yatesアルゴリズムに従う
    */
   public shuflle(count: number = 1): void {
-    for (let i = 0; i < count; i++) {
+    for (let i = this._cards.length - 1; i > 0; i--) {
       const r = Math.floor(Math.random() * (i + 1));
-      [this._cards[i], this.cards[r]] = [this._cards[r], this.cards[i]]
+      let tmp = this._cards[i];
+      this._cards[i] = this._cards[r];
+      this.cards[r] = tmp;
     }
   }
 
@@ -70,5 +72,3 @@ class CardList {
   }
 }
 
-
-export { CardList }

@@ -14,8 +14,11 @@ if (!root) {
 }
 root.appendChild(t.node);
 const deck = CardList.createNotShuffledDeck();
+deck.shuflle(10000);
 let card: Card;
-for (let i = 0; i < 5; i++) {
+const count = 5;
+for (let i = 0; i < count; i++) {
   card = deck.draw();
+  console.log(i);
   t.node.appendChild(card.node);
 }
