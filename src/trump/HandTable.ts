@@ -8,15 +8,10 @@ import { NodeElement } from "./NodeElement";
  */
 class HandTable extends NodeElement {
   /**
-   * 山札(手札)
-   */
-  private _deck: CardList;
-  /**
    * タグ
    */
-  public constructor(deck: CardList = new CardList()) {
+  public constructor(public readonly _deck: CardList = new CardList()) {
     super(document.createElement("div"), ["hand-table"]);
-    this._deck = deck;
   }
 
   get deck(): CardList {
@@ -24,14 +19,10 @@ class HandTable extends NodeElement {
   }
 
   /**
-   * カードを置く
+   * カードを1枚置く
    * @param card カード
    */
   public addCard(card: Card): void {
-    // if (this._deck.length >= 5) {
-    //   console.log("もう追加でけへんで");
-    //   return;
-    // }
     this._deck.add(card);
   }
 
@@ -48,8 +39,23 @@ class HandTable extends NodeElement {
    */
   public judgeStrength(): HandType {
     if (this.isRoyalStraightFlush()) {
-
+      return HandType.ROYAL_STRAIGHT_FLUSH;
     }
+    console.log("ロイヤルストレートフラッシュじゃ無いです。");
+
+    if (this.isStraightFlush()) {
+      return HandType.STRAIGHT_FLUSH;
+    }
+    console.log("ストレートフラッシュじゃ無いです");
+    if (this.isFlush()) {
+      return HandType.FLUSH;
+    }
+    console.log("フラッシュじゃ無いです");
+    if (this.isStraight()) {
+      return HandType.STRAIGHT;
+    }
+    console.log("ストレートじゃ無いです");
+
     return HandType.HIGH_CARDS;
   }
 
@@ -57,15 +63,39 @@ class HandTable extends NodeElement {
    * ロイヤルストレートフラッシュならtrue
    */
   private isRoyalStraightFlush(): boolean {
-    //先頭の柄取得
-    const first = this._deck;
-    console.log(first);
+    const startFrom = 10;
+    return this.isStraightFlush(startFrom);
+  }
+  /**
+   * ストレートかつフラッシュならtrue
+   * @param {number} fisrtNumber 先頭の数値
+  */
+  private isStraightFlush(startFrom?: number): boolean {
+    return this.isStraight() && this.isFlush();
+  }
+  /**
+   * 柄が全部一緒ならtrue
+   */
+  private isFlush(): boolean {
+    const first = this._deck.cards[0];
+    return this._deck.cards.every(card => {
+      return card.suit === first.suit;
+    });
+  }
 
-    // const sortedCards = this._deck.cards.sort((a, b) => {
-    //   return a.number.num - b.number.num;
-    // })
-    // console.log(sortedCards);
-    return false;
+  /**
+   * 数値が連続ならtrue
+   * @param {number} startFrom 何番から始まるか
+   */
+  private isStraight(startFrom?: number): boolean {
+    const sorted = this.deck.cards.sort((a, b) => {
+      return a.number.num - b.number.num;
+    })
+    const first = sorted[0];
+    const firstNumber = startFrom ? startFrom : first.number.num;
+    return sorted.every((card, index) => {
+      return card.number.num == firstNumber + index
+    });
   }
 }
 
