@@ -7,19 +7,23 @@ import { NodeElement } from "./NodeElement";
  * 弾き終わって交換したら自分の強さを観れる
  */
 class HandTable extends NodeElement {
+
   /**
-   * タグ
+   *コンストラクタ
+   * @param _deck カードリスト/空なら空のカードリストを作成
    */
   public constructor(public readonly _deck: CardList = new CardList()) {
     super(document.createElement("div"), ["hand-table"]);
   }
-
+  /**
+   * カードたちを返す
+   */
   get deck(): CardList {
     return this._deck;
   }
 
   /**
-   * カードを1枚置く
+   * カードを1枚追加
    * @param card カード
    */
   public addCard(card: Card): void {
@@ -35,14 +39,13 @@ class HandTable extends NodeElement {
 
   /**
    * 手札の強さを返す
-   * 格判定を使う
+   * 各判定を使う
    */
   public judgeStrength(): HandType {
     if (this.isRoyalStraightFlush()) {
       return HandType.ROYAL_STRAIGHT_FLUSH;
     }
     console.log("ロイヤルストレートフラッシュじゃ無いです。");
-
     if (this.isStraightFlush()) {
       return HandType.STRAIGHT_FLUSH;
     }
@@ -51,11 +54,27 @@ class HandTable extends NodeElement {
       return HandType.FLUSH;
     }
     console.log("フラッシュじゃ無いです");
+    const { maxNumOfPair, pairCounts } = this.getSameCardsPairs();
+    if (maxNumOfPair === 3 && pairCounts === 2) {
+      return HandType.FULL_HOUSE;
+    }
+    if (maxNumOfPair === 4) {
+      return HandType.FOUR_OF_A_KIND;
+    }
+    console.log("フォーカードじゃ無いです");
     if (this.isStraight()) {
       return HandType.STRAIGHT;
     }
     console.log("ストレートじゃ無いです");
-
+    if (maxNumOfPair === 3 && pairCounts === 3) {
+      return HandType.THREE_OF_A_KIND;
+    }
+    if (maxNumOfPair === 2 && pairCounts === 3) {
+      return HandType.TWO_PAIR;
+    }
+    if (maxNumOfPair === 2 && pairCounts === 4) {
+      return HandType.ONE_PAIR;
+    }
     return HandType.HIGH_CARDS;
   }
 
@@ -82,7 +101,6 @@ class HandTable extends NodeElement {
       return card.suit === first.suit;
     });
   }
-
   /**
    * 数値が連続ならtrue
    * @param {number} startFrom 何番から始まるか
@@ -97,12 +115,45 @@ class HandTable extends NodeElement {
       return card.number.num == firstNumber + index
     });
   }
+  /**
+   * 同じ数値の個数が指定値に合致しているかを返す
+   * @param count 合致枚数
+   */
+  private getSameCardsPairs(): { maxNumOfPair: number, pairCounts: number } {
+    const numMap: Map<number, number> = new Map();
+    //キーがなければ追加し、あったらインクリメント
+    this.deck.cards.forEach(card => {
+      if (!numMap.get(card.number.num)) {
+        numMap.set(card.number.num, 1);
+      } else {
+        numMap.set(card.number.num, <number>numMap.get(card.number.num) + 1);
+      }
+    })
+    const maxNumOfPair = Math.max(...Array.from(numMap.values()));
+    const pairCounts = numMap.size;
+    //ツーペアとフルハウスの場合を考える→キーが2の組が二つ欲しい
+    return {
+      maxNumOfPair,
+      pairCounts
+    };
+  }
 }
 
 
 /**
  * 役
  * 得点=強さを持つ
+ * 弱い順から
+ * ブタ
+ * ワンペア
+ * ツーペア
+ * スリーカード
+ * ストレート
+ * フラッシュ
+ * フルハウス
+ * フォーカード
+ * ストレートフラッシュ
+ * ロイヤルストレートフラッシュ
  */
 class HandType {
   //弱い順
