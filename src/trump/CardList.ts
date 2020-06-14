@@ -1,6 +1,6 @@
 import { Card, Suit, Number } from "./Card";
 class CardList {
-  private _cards: Card[];
+  private _cards: Array<Card>;
   /**
    * コンストラクタ
    * カードのリストから作成
@@ -38,8 +38,8 @@ class CardList {
   public static createNotShuffledDeck(withJoker: boolean = false): CardList {
     let card;
     const cards = new Array<Card>();
-    Card.getAllNumbers().forEach(number => {
-      Card.getAllSuits().forEach(suit => {
+    Number.getAll().forEach(number => {
+      Suit.getAll().forEach(suit => {
         card = new Card(suit, number);
         cards.push(card);
       })
@@ -48,10 +48,14 @@ class CardList {
   }
 
   /**
-   * まぜまぜする
+   * カードをまぜまぜする
+   * Fisher–Yatesアルゴリズムに従う
    */
-  public shuflle(): void {
-
+  public shuflle(count: number = 1): void {
+    for (let i = 0; i < count; i++) {
+      const r = Math.floor(Math.random() * (i + 1));
+      [this._cards[i], this.cards[r]] = [this._cards[r], this.cards[i]]
+    }
   }
 }
 
