@@ -10,7 +10,7 @@ module.exports = {
   // development に設定するとソースマップ有効でJSファイルが出力される
   mode: MODE,
   // メインとなるJavaScriptファイル（エントリーポイント）
-  entry: './src/ts/main.ts',
+  entry: './src/main.ts',
   module: {
     rules: [
       {
